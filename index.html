@@ -1,81 +1,113 @@
 <!doctype html>
 <html class="no-js" lang="vi">
+
 <head>
-<meta charset="utf-8">
-<title>Content Filter</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
- integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
- <style type="text/css">
- 	body {
- 		padding: 100px 0;
- 	}
-
- 	img {
- 		max-width: 100%;
- 	}
-
- 	.m-b-30 {
- 		margin-bottom: 30px;
- 	}
- </style>
+    <meta charset="utf-8">
+    <title>Content Filter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
+    <style type="text/css">
+        body {
+            padding: 100px 0;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        .m-b-30 {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
-<body>
-<div class="container">
-	<ul class="nav nav-pills filter-link m-b-30">
-		<li><a href="#" data-filter="1">Nhóm 1</a></li>
-		<li><a href="#" data-filter="2">Nhóm 2</a></li>
-		<li><a href="#" data-filter="3">Nhóm 3</a></li>
-	</ul>
-	<div class="item-list">
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="1"><a href="#"><img src="img/tranh (1).jpg" alt="Tranh 1"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="1"><a href="#"><img src="img/tranh (2).jpg" alt="Tranh 2"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="1"><a href="#"><img src="img/tranh (3).jpg" alt="Tranh 3"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="1"><a href="#"><img src="img/tranh (4).jpg" alt="Tranh 4"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="1"><a href="#"><img src="img/tranh (5).jpg" alt="Tranh 5"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="2"><a href="#"><img src="img/tranh (6).jpg" alt="Tranh 6"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="2"><a href="#"><img src="img/tranh (7).jpg" alt="Tranh 7"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="2"><a href="#"><img src="img/tranh (8).jpg" alt="Tranh 8"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="2"><a href="#"><img src="img/tranh (9).jpg" alt="Tranh 9"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="2"><a href="#"><img src="img/tranh (10).jpg" alt="Tranh 10"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="3"><a href="#"><img src="img/tranh (11).jpg" alt="Tranh 11"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="3"><a href="#"><img src="img/tranh (12).jpg" alt="Tranh 12"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="3"><a href="#"><img src="img/tranh (13).jpg" alt="Tranh 13"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="3"><a href="#"><img src="img/tranh (14).jpg" alt="Tranh 14"></a></div>
-		<div class="item-child m-b-30 col-md-2 animate__animated" data-group="3"><a href="#"><img src="img/tranh (15).jpg" alt="Tranh 15"></a></div>
-	</div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		// Lấy tất cả item-child
-		var items = [];
-		$('.item-list .item-child').each(function() {
-			items.push('<div class="animate__zoomOutDown ' + $(this).attr('class') + '" data-group="' + $(this).data('group') + '">' + $(this).html() + '</div>');
-		});
 
-		// Sự kiện khi bấm vào bộ lọc
-		$('.filter-link a').click(function (e) {
-			e.preventDefault();
-			var group = $(this).data('filter');
-			$('.item-list .item-child').addClass('animate__faster animate__zoomOutDown');
-			$('.item-list .item-child').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-				$('.item-list').html(''); // Làm trống nội dung
-				
-				// Lấy kết quả
-				var result = '';
-				for (var i = 0; i < items.length; i++) {
-					if (items[i].includes('data-group="' + group + '"')) {
-						result += items[i];
-					}
-				};
-				
-				$('.item-list').html(result);
-				$('.item-list .item-child').removeClass('animate__zoomOutDown').addClass('animate__fadeInUp');
-			});
-		});
-	});
-</script>
+<body>
+    <div class="container">
+        <ul class="nav nav-pills filter-link m-b-30">
+            <li><a href="#" data-filter="1">Nhóm 1</a></li>
+            <li><a href="#" data-filter="2">Nhóm 2</a></li>
+            <li><a href="#" data-filter="3">Nhóm 3</a></li>
+        </ul>
+        <div class="item-list">
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="1">
+                <a href="#"><img src="img/tranh (1).jpg" alt="Tranh 1"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="1">
+                <a href="#"><img src="img/tranh (2).jpg" alt="Tranh 2"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="1">
+                <a href="#"><img src="img/tranh (3).jpg" alt="Tranh 3"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="1">
+                <a href="#"><img src="img/tranh (4).jpg" alt="Tranh 4"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="1">
+                <a href="#"><img src="img/tranh (5).jpg" alt="Tranh 5"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="2">
+                <a href="#"><img src="img/tranh (6).jpg" alt="Tranh 6"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="2">
+                <a href="#"><img src="img/tranh (7).jpg" alt="Tranh 7"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="2">
+                <a href="#"><img src="img/tranh (8).jpg" alt="Tranh 8"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="2">
+                <a href="#"><img src="img/tranh (9).jpg" alt="Tranh 9"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="2">
+                <a href="#"><img src="img/tranh (10).jpg" alt="Tranh 10"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="3">
+                <a href="#"><img src="img/tranh (11).jpg" alt="Tranh 11"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="3">
+                <a href="#"><img src="img/tranh (12).jpg" alt="Tranh 12"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="3">
+                <a href="#"><img src="img/tranh (13).jpg" alt="Tranh 13"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="3">
+                <a href="#"><img src="img/tranh (14).jpg" alt="Tranh 14"></a>
+            </div>
+            <div class="item-child m-b-30 col-md-2 animate__animated" data-group="3">
+                <a href="#"><img src="img/tranh (15).jpg" alt="Tranh 15"></a>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Lấy tất cả item-child
+            var items = [];
+            $('.item-list .item-child').each(function() {
+                items.push('<div class="animate__zoomOutDown ' + $(this).attr('class') + '" data-group="' + $(this).data('group') + '">' + $(this).html() + '</div>');
+            });
+
+            // Sự kiện khi bấm vào bộ lọc
+            $('.filter-link a').click(function(e) {
+                e.preventDefault();
+                var group = $(this).data('filter');
+                $('.item-list .item-child').addClass('animate__faster animate__zoomOutDown');
+                $('.item-list .item-child').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                    $('.item-list').html(''); // Làm trống nội dung
+
+                    // Lấy kết quả
+                    var result = '';
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].includes('data-group="' + group + '"')) {
+                            result += items[i];
+                        }
+                    };
+
+                    $('.item-list').html(result);
+                    $('.item-list .item-child').removeClass('animate__zoomOutDown').addClass('animate__fadeInUp');
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
